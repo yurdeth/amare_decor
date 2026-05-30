@@ -45,7 +45,7 @@ export const productSchema = z.object({
     .max(10000, 'La cantidad no puede exceder 10000'),
 
   status: z.enum(['available', 'in-use', 'maintenance'], {
-    errorMap: () => ({ message: 'Estado inválido' })
+    message: 'Estado inválido'
   }),
 
   estimatedValue: z.number()
@@ -74,7 +74,7 @@ export const eventSchema = z.object({
     .refine((val) => new Date(val) >= new Date(), 'La fecha debe ser futura'),
 
   type: z.enum(['Boda', 'Cumpleaños', 'Corporativo', 'Aniversario', 'Otros'], {
-    errorMap: () => ({ message: 'Tipo de evento inválido' })
+    message: 'Tipo de evento inválido'
   }),
 
   budget: z.number()
@@ -83,7 +83,7 @@ export const eventSchema = z.object({
     .refine((val) => val > 0, 'El presupuesto debe ser mayor que 0'),
 
   status: z.enum(['pending', 'confirmed', 'completed', 'cancelled'], {
-    errorMap: () => ({ message: 'Estado inválido' })
+    message: 'Estado inválido'
   }),
 
   items: z.array(z.object({
@@ -135,7 +135,7 @@ export const expenseSchema = z.object({
     .refine((val) => !isNaN(Date.parse(val)), 'Fecha inválida'),
 
   category: z.enum(['Materiales', 'Mano de obra', 'Transporte', 'Alquiler', 'Otros'], {
-    errorMap: () => ({ message: 'Categoría inválida' })
+    message: 'Categoría inválida'
   }),
 
   description: z.string()
@@ -199,7 +199,7 @@ export function validateSchema<T>(schema: z.ZodSchema<T>, data: unknown): T {
   const result = schema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.errors.map(err => ({
+    const errors = result.error.issues.map(err => ({
       field: err.path.join('.'),
       message: err.message
     }));
@@ -215,7 +215,7 @@ export function getValidationErrors(schema: z.ZodSchema, data: unknown): Record<
 
   if (!result.success) {
     const errors: Record<string, string> = {};
-    result.error.errors.forEach(err => {
+    result.error.issues.forEach(err => {
       const field = err.path.join('.');
       errors[field] = err.message;
     });
