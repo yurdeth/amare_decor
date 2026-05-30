@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "name": "Admin User",
+    "email": "admin@ejemplo.com",
+    "role": "admin",
+    "hash": "$2b$10$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  {
+    "id": "2",
+    "name": "Editor User",
+    "email": "editor@ejemplo.com",
+    "role": "editor",
+    "hash": "$2b$10$yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+  }
+]
