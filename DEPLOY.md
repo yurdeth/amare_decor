@@ -25,7 +25,7 @@ sudo npm install -g pm2
 cd /home/angel/PhpstormProjects/amare-decor
 
 # Instalar dependencias de producción
-npm install --production
+npm install
 
 # Crear archivos de configuración
 cp .env.example .env.local
